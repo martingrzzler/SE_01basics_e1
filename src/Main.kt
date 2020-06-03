@@ -1,20 +1,24 @@
-import kotlin.reflect.typeOf
-
 fun main() {
     val code = getRandomCode()
     var i = 0
     var hint = 0
+    var hint2 = 0
     println("Guess the secret Code. The Code is 4 digits long and contains numbers from 1 to 6")
     println(code)
-    while (i < 3) {
+    while (i < 12) {
         println("Guess it: ")
 
-        val guess = readLine()!!.split("")
-        val guessIntList = turnIntoIntArray(guess)
+        val guess = readLine()!!.split("").turnIntoIntList()
+        val temp = code.toMutableList()
 
-        for (j in 0 until 12) {
-            if ( guessIntList[j] == code[j]) {
+        for (j in 0 until 4) {
+
+            if ( guess[j] == code[j]) {
                 hint++
+            }
+            if (temp.contains(guess[j])) {
+                hint2++
+                temp.remove(guess[j])
             }
         }
 
@@ -24,8 +28,10 @@ fun main() {
         }
 
 
-        println("You got $hint numbers correct")
+        println("You got $hint number(s) correct and in the right position")
+        println("$hint2 number(s) of your input are correct")
         hint = 0
+        hint2 = 0
         i++
     }
 
@@ -46,13 +52,12 @@ fun getRandomCode(): List<Int> {
 
 
 
-fun turnIntoIntArray(list: List<String>): List<Int> {
-    val newList = mutableListOf<Int>()
-    for (i in list) {
-        if (i != "") {
-            val temp = i.toInt()
-            newList.add(temp)
-        }
+fun List<String>.turnIntoIntList(): List<Int> {
+    return this.filter {
+        it != ""
+    }.map {
+        it.toInt()
     }
-    return newList
+
+
 }
