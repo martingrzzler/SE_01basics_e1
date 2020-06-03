@@ -1,4 +1,6 @@
 fun main() {
+
+
     val code = getRandomCode()
     var i = 0
     var hint = 0
