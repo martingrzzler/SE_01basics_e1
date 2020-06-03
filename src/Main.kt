@@ -11,6 +11,11 @@ fun main() {
         val guess = readLine()!!.split("").turnIntoIntList()
         val temp = code.toMutableList()
 
+        if (guess.toIntArray().contentEquals(code.toIntArray())) {
+            println("Congrats! You win!")
+            return
+        }
+
         for (j in 0 until 4) {
 
             if ( guess[j] == code[j]) {
@@ -20,11 +25,6 @@ fun main() {
                 hint2++
                 temp.remove(guess[j])
             }
-        }
-
-        if (hint == 4) {
-            println("Congrats! You win")
-            return
         }
 
 
